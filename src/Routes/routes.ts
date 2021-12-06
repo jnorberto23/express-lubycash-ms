@@ -1,7 +1,8 @@
 import express from "express";
 //import HomeControllers from "../controllers/HomeControllers.js";
 import UserControllers from "../Controllers/UserControllers";
-
+import UserStoreValidator  from "../Middlewares/Validators/UserStoreValidator"
+import UserStoreSchema from "../Schemas/UserStoreSchema"
 //import auth from "../middleware/auth.js";
 
 const router = express.Router();
@@ -14,7 +15,7 @@ router.get("/", (req, res) => {
 
 // User routes
 
-router.post("/users", UserControllers.Store);
+router.post("/users", UserStoreSchema, UserStoreValidator, UserControllers.Store);
 //router.post("/auth", UserControllers.auth);
 //router.get("/user/:id", UserControllers.findById);
 //router.put("/user/", auth, UserControllers.edit)
