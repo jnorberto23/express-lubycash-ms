@@ -3,5 +3,5 @@ import app from './app'
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  console.log(`Server Running at port ${PORT}`);
+  console.log(`Server Running at port ${PORT}`, process.env.DB_HOST);
 });
