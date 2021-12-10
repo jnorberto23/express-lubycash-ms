@@ -1,0 +1,32 @@
+<style>
+    * {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: rgb(51, 51, 51);
+        background-color: rgb(250, 250, 250);
+    }
+
+    p {
+        text-align: left
+    }
+
+    strong {
+        color: greenyellow;
+        font-weight: bold;
+        font-size: 18pt;
+    }
+</style>
+
+<p>Olá {{ user.full_name }}!</p>
+<p>Tudo bem? Esperamos que sim :D</p>
+{{#if message.accepted}}
+<p>Seja bem-vindo ao melhor banco digital, o LubyCash!</p>
+<p>Analisamos a sua requisição e achamos que você tem tudo o que precisa pra ser o nosso novo parceiro!</p>
+<p>Como um pequeno mimo, estaremos depositamos R$ 200,00 na sua conta corrente, para você usar como quiser!</p>
+<p>Iremos utilizar esse e-mail para enviar as ultimas noticias, novidades e alertas de transferências, ok?</p>
+{{else}}
+<p>Analisamos a sua requisição e infelizmente não vamos poder seguir com a sua inscrição :(</p>
+<p>Daqui a alguns meses, iremos analisar novamente e se tudo der certo, iremos te informar, ta bom?</p>
+{{/if}}
+
+<p>Abraços a distancia.</p>
+<strong>LubyCash</strong>

@@ -1,24 +1,37 @@
 import { getRepository } from "typeorm";
 import User from "../../models/User";
+import sendMail from "../Nodemailer/mailer";
 
 class Approval {
   public async run(data: any) {
-    const parsedData = JSON.parse(data)
+    const parsedData = JSON.parse(data);
     const { average_salary } = parsedData;
     const repository = getRepository(User);
     parsedData.total = 900;
-    console.log(parsedData.total)
+
+    let accepted = false
     if (average_salary >= 500) {
-        parsedData.status = "accepted";
-      console.log("accepted")
+      parsedData.status = "accepted";
+      parsedData.current_balance += 200;
+      accepted = true
     } else {
-        parsedData.status = "refused";
-      console.log("refused")
+      parsedData.status = "refused";
+      accepted = false
     }
 
     const user = repository.create({ ...parsedData });
     await repository.save(user);
-    console.log(user)
+
+    sendMail.send({
+      template: "newClient",
+      message: JSON.stringify({
+        user: user,
+        subject: "Feedback LubyCash",
+        message: { accepted },
+      }),
+    });
+
+    return;
   }
 }
 

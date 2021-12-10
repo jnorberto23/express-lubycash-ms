@@ -1,5 +1,6 @@
 import { Kafka, Consumer as KafkaConsumer } from "kafkajs";
 import Approval from "../approvalMat/Approval";
+import sendMail from "../Nodemailer/mailer";
 
 interface InterfaceConsume {
   topic: string;
@@ -25,11 +26,15 @@ export default class Consumer {
     console.log(`Consuming topic ${topic}`);
     await this.consumer.run({
       eachMessage: async ({ topic, message }) => {
-        console.log(message.value?.toString())
-          if(topic === 'newClient'){
-            console.log(message.value?.toString())
-            Approval.run(message.value?.toString())
-          }
+        if (topic === "newClient") {
+          console.log(message.value?.toString());
+          Approval.run(message.value?.toString());
+        } else {
+          sendMail.send({
+            template: topic.toString(),
+            message: message.value?.toString(),
+          });
+        }
       },
     });
   }
