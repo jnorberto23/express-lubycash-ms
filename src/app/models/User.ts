@@ -4,11 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  BeforeInsert,
-  BeforeUpdate
 } from "typeorm";
-
-import bcryptjs from 'bcryptjs'
 
 @Entity("users")
 class User {

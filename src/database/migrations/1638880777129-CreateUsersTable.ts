@@ -53,7 +53,6 @@ export class CreateUsersTable1638880777129 implements MigrationInterface {
           {
             name: "zipcode",
             type: "varchar",
-            isUnique: true,
           },
           {
             name: "current_balance",

@@ -5,7 +5,7 @@ networks:
   lubycash-ms-network:
     driver: bridge
 services:
-  app:
+  app-ms:
     container_name: 'express-lubycash-ms'
     build:
       context: .
@@ -20,6 +20,8 @@ services:
       - /usr/ms_lubycash/node_modules # anonymous volume for node_modules only
     ports:
       - '3339:3339'
+    expose:
+      - 3339
     depends_on:
       -  db-ms
   db-ms:

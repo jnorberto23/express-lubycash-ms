@@ -4,17 +4,32 @@ import { getRepository } from "typeorm";
 import User from "../models/User";
 
 class UserController {
-  async store(req: Request, res: Response) {
+  async show(req: Request, res: Response) {
+    
+    const dataParam = req.query;
+    console.log('show', dataParam)
     const repository = getRepository(User);
-    const data = req.body;
-    console.log(data);
     try {
-      data.status = "refused";
-      const user = repository.create({ ...data });
-      await repository.save(user);
-      res.send(user)
+      const user = await repository.findOneOrFail(dataParam);
+      res.send(user);
     } catch (err) {
-      console.log(err);
+      res.status(400).send(err);
+    }
+  }
+
+  async update(req: Request, res: Response) {
+    const { cpf } = req.params;
+    const userData = req.body;
+
+    const repository = getRepository(User);
+    try {
+      const user = await repository.update(
+        { cpf_number: cpf },
+        { ...userData }
+      );
+
+      res.send(user);
+    } catch (err) {
       res.status(400).send(err);
     }
   }

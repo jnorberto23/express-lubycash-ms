@@ -17,7 +17,8 @@ router.get("/", (req, res) => {
 
 // User routes
 
-router.post("/users", UserController.store);
+router.get("/users", UserController.show);
+router.put("/users/:cpf", UserController.update);
 //router.put("/user/", auth, UserControllers.edit)
 //router.delete("/user/:id", auth, UserControllers.deleteById););
 //router.get("/user/

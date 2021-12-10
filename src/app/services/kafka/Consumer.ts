@@ -1,5 +1,5 @@
 import { Kafka, Consumer as KafkaConsumer } from "kafkajs";
-import Approval from "../approvalMat/approval";
+import Approval from "../approvalMat/Approval";
 
 interface InterfaceConsume {
   topic: string;
@@ -24,8 +24,10 @@ export default class Consumer {
 
     console.log(`Consuming topic ${topic}`);
     await this.consumer.run({
-      eachMessage: async ({ topic, partition, message }) => {
+      eachMessage: async ({ topic, message }) => {
+        console.log(message.value?.toString())
           if(topic === 'newClient'){
+            console.log(message.value?.toString())
             Approval.run(message.value?.toString())
           }
       },
