@@ -9,6 +9,9 @@ const router = express.Router();
 
 const consumer = new Consumer("ms-lubycash");
 consumer.consume({ topic: "newClient", fromBeginning: false });
+consumer.consume({ topic: "newAdmin", fromBeginning: false });
+consumer.consume({ topic: "newTransferSend", fromBeginning: false });
+consumer.consume({ topic: "newTransferReceived", fromBeginning: false });
 consumer.consume({ topic: "forgotPassword", fromBeginning: false });
 
 router.get("/", (req, res) => {
