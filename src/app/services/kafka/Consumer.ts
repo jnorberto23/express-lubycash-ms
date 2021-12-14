@@ -22,12 +22,10 @@ export default class Consumer {
   public async consume({ topic, fromBeginning }: InterfaceConsume) {
     await this.consumer.connect();
     await this.consumer.subscribe({ topic, fromBeginning });
-
-    console.log(`Consuming topic ${topic}`);
     await this.consumer.run({
       eachMessage: async ({ topic, message }) => {
         if (topic === "newClient") {
-          console.log(message.value?.toString());
+
           Approval.run(message.value?.toString());
         } else {
           sendMail.send({

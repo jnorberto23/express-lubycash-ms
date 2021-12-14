@@ -35,7 +35,6 @@ class sendMail {
   }
 
   async send(params: any) {
-    console.log('parametros: ', params)
     const { user, subject, message } = JSON.parse(params.message);
     const template = params.template;
 
@@ -48,7 +47,7 @@ class sendMail {
       template: template.toString(),
       context: { message: message, user: user },
     };
- 
+
     await this.transporter
       .sendMail(mailer)
       .then(() => {

@@ -7,16 +7,15 @@ class UserController {
   async show(req: Request, res: Response) {
     const dataParam = req.query;
     const repository = getRepository(User);
-    console.log(dataParam)
     try {
-      if (dataParam.status) {
-        console.log(dataParam.status)
+      if (dataParam) {
         const users = await repository.find({
           select: [
             "id",
             "full_name",
             "cpf_number",
             "email",
+            "password",
             "phone",
             "zipcode",
             "current_balance",
@@ -24,14 +23,10 @@ class UserController {
           ],
           where: { ...dataParam },
         });
-        console.log(users)
         res.send(users);
       } else {
-        console.log('entrou aqui')
-        console.log(dataParam)
-        const user = await repository.findOneOrFail(dataParam);
-        console.log('user', user)
-        res.send(user);
+        const users = await repository.find();
+        res.send(users);
       }
     } catch (err) {
       res.status(400).send(err);
@@ -41,7 +36,6 @@ class UserController {
   async update(req: Request, res: Response) {
     const { cpf_number } = req.params;
     const userData = req.body;
-    console.log(userData)
     const repository = getRepository(User);
     try {
       const user = await repository.update(
